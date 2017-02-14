@@ -1,0 +1,128 @@
+#contenedor {
+   background-color: chocolate;
+    border: 1px solid black;
+    width: 1000px;
+    height: 700px;
+}
+
+#contenido {
+    background-color: blue;
+    float: left;
+    border-top: 180px;
+    width: 980px;
+    height: 480px;
+    padding: 10px;
+}
+
+#barra {
+    background-color: crimson;
+    width: 1000px;
+    height: 100px;
+    float: left;
+}
+
+.logo {
+    text-align: center;
+    margin-left: 50px;
+    margin-top: 35px;
+    float: left;
+}
+
+#cuadro {
+    background-color: chartreuse;
+    width: 500px;
+    height: 100px;
+    float: right;
+}
+
+.inicio {
+    text-align: center;
+}
+
+.registro {
+    text-align: center;
+}
+
+#menu {
+    width: 1000px;
+    height: 50px;
+    background-color: blueviolet;
+    float: left;
+}
+
+#inicio {
+    height: 20px;
+    width: 100px;
+    float: left;
+    text-align: center;
+    background-color: darkorange;
+    padding: 15px;
+}
+
+#noticias {
+    height: 20px;
+    width: 100px;
+    float: left;
+    text-align: center;
+    background-color: saddlebrown;
+    padding: 15px;
+}
+
+#categorias {
+    height: 20px;
+    width: 100px;
+    float: left;
+    text-align: center;
+    background-color: firebrick;
+    padding: 15px;
+}
+
+#c1 {
+    width: 480px;
+    height: 230px;
+    border: 1px solid black;
+    float: left;
+}
+
+#c2 {
+    width: 480px;
+    height: 230px;
+    border: 1px solid black;
+    float: right;
+}
+
+#c3 {
+    width: 480px;
+    height: 230px;
+    border: 1px solid black;
+    float: left;
+}
+
+#c4 {
+    width: 480px;
+    height: 230px;
+    border: 1px solid black;
+    float: right;
+}
+
+#info {
+    width: 1000px;
+    height: 50px;
+    text-align: center;
+    float: left;
+}
+
+#info p {
+    margin: 0px;
+    padding: 15px;
+}
+
+
+
+
+
+
+
+
+
+
