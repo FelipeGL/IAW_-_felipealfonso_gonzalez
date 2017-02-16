@@ -14,7 +14,7 @@
         </div>
         <div id="contenido">
             <div id="login"> 
-                    <form  method="post">
+                    <form  method="post" autocomplete="off">
                         <span>Id de usuario: </span><input type="text" name="id"/><p></p>
                         <span>Contraseña: </span><input type="password" name="pass"/><p></p>
                         <input type="submit" name="iniciar" value="Iniciar" class="boton">

@@ -12,7 +12,7 @@
         <div id="barra">
             <h3 class="logo">KITECT.COM</h3>
             <div id="cuadro">
-                <p class="inicio"><a href="Inicio.php">Iniciar Sesión></a></p>
+                <p class="inicio"><a href="Inicio.php">Iniciar Sesión</a></p>
                 <p class="registro">¿Quieres unirte para obtener ventajas?. <a href="Registro.php">Resgistrate</a></p>
             </div>
         </div>
