@@ -1,5 +1,7 @@
 <?php
-session_star();
+session_start();
+unset ($SESSION['id']);
 session_destroy();
-header(location: Principal.php);
+var_dump("Sesión cerrada con éxito");
+header('Location: principal.php');
 ?>

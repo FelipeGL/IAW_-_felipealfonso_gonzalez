@@ -19,7 +19,7 @@
                         <p>Nick</p><input type="text" name="id" value="nick para el foro"/><br>
                         <p>Nombre</p><input type="text" name="nombre" value="nombre"/><br>
                         <p>Apellidos</p><input type="text" name="apellidos" value="apellidos"/><br>
-                        <p>Correo electrónico</p><input type="email" name="email" value="correo"/><br>
+                        <p>Correo electrónico</p><input type="email" name="@kitect.com" value="correo"/><br>
                         <p>Contraseña</p><input type="password" name="pass" value="password"/><br>
                         <input type="submit" name="enviar" value="Insertar">
                     </form>
@@ -41,17 +41,16 @@
             printf("Connection failed: %s\n", $connection->connect_error);
             exit();
         }
-        $sql="INSERT INTO usuario (IdUsuario,Nombre,Apellidos,Correo,Password,Tipo)
-        VALUES ('$IdUsuario','$Nombre','$Apellidos','$Correo','$Password','User')";
+        $sql="INSERT INTO usuarios (IdUsuario,Nombre,Apellidos,Correo,Password,Tipo)
+        VALUES ('$IdUsuario','$Nombre','$Apellidos','$Correo',md5('$Password'),'user')";
 
         if ($result = $connection->query($sql)){
             echo "Usuario Registrado correctamente";
-            //echo "<input type="button" value="Inicio" href="Principal.php">";
+            echo "<br>";
+            echo '<a href="principal.php"><input type="button" value="Inicio"></a>';
         } else {
             echo "Error en la consulta";
         }
-
-
 
         unset($connection);
 
