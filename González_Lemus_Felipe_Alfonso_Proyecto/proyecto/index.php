@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+  session_start();
+?>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,8 +46,39 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <h3>Registro de usuario</h3> 
-          </ul>
+            <li><a href="work.html">Categorias</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+              <li>
+                  <?php
+                 if (!isset($_SESSION["tipo"])){
+                  echo '<a href="inicio.php">Iniciar sesión</a>';
+                 }
+                 ?>
+                </li>
+
+                <li>
+                    <?php
+                    if (isset($_SESSION["nick"])){
+                    echo '<span>Has iniciado sesión como '.$_SESSION['nick'].' '.'<a href="logout.php"><span style="color:red;font-weight:bold">Cerrar sesión</span></a></span>';
+                    } 
+                    ?>
+                  </li>    
+               <li>
+                  <?php
+                  if (!isset($_SESSION["tipo"])){
+                 echo '<a href="registro.php">Registrarse</a>';
+                 }else{
+                 if ($_SESSION["tipo"]=='admin'){
+                 echo '<a href="admin.php">Panel de Control</a>';
+                 }elseif ($_SESSION["tipo"]=='user') {
+                 echo '<a href="usuario.php">Panel de Control</a>';
+                 }
+                 }
+              ?>
+            </li>
+            </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -54,15 +88,7 @@
 	    <div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 centered">
-                    <?php if (!isset($_POST["nick"])) :?> 
-                    <form  method="post">
-                        <span>Nick </span><input type="text" name="nick"/><p></p>
-                        <span>Nombre </span><input type="text" name="nombre"/><p></p>
-                        <span>Apellidos </span><input type="text" name="apellidos"/><p></p>
-                        <span>Correo electrónico </span><input type="email" name="email" value="@kitect.com"/><p></p>
-                        <span>Contraseña </span><input type="password" name="pass"/><p></p>
-                        <input type="submit" name="enviar" value="Insertar">
-                    </form>
+				
 				</div><!-- /col-lg-8 -->
 			</div><!-- /row -->
 	    </div> <!-- /container -->
@@ -93,36 +119,6 @@
 		
 		</div>
 	</div>
-     <?php else :?>
-        <?php
-        $nick= $_POST["nick"];
-        $nombre= $_POST["nombre"];
-        $apellidos= $_POST["apellidos"];
-        $correo= $_POST["email"];
-        $password= $_POST["pass"];
-
-        $connection = new mysqli("localhost", "felipe", "2asirtriana", "proyecto");
-
-        if ($connection->connect_errno) {
-            printf("Connection failed: %s\n", $connection->connect_error);
-            exit();
-        }
-        $sql="INSERT INTO usuarios (idusuario,nick,nombre,apellidos,correo,fecha_reg,password,tipo)
-        VALUES (NULL,'$nick','$nombre','$apellidos','$correo',sysdate(),md5('$password'),'user')";
-        
-
-        if ($result = $connection->query($sql)){
-            echo "Usuario Registrado correctamente";
-            echo "<br>";
-            echo '<a href="index.php"><input type="button" value="Inicio"></a>';
-        } else {
-            echo "Error en la consulta";
-        }
-
-        unset($connection);
-
-        ?>
-        <?php endif ?>
 	
 
     <!-- Bootstrap core JavaScript
