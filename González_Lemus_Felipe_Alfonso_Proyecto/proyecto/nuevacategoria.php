@@ -45,37 +45,8 @@
           <a class="navbar-brand" href="index.php">KITECT.COM</a>
         </div>
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="categorias.php">Categorias</a></li>
-            <li></li>
-              <li>
-                  <?php
-                 if (!isset($_SESSION["tipo"])){
-                  echo '<a href="inicio.php">Iniciar sesión</a>';
-                 }
-                 ?>
-                </li>
-
-                <li>
-                    <?php
-                    if (isset($_SESSION["nick"])){
-                    echo '<span>Has iniciado sesión como '.$_SESSION['nick'].' '.'<a href="logout.php"><span style="color:red;font-weight:bold">Cerrar sesión</span></a></span>';
-                    } 
-                    ?>
-                  </li>    
-               <li>
-                  <?php
-                  if (!isset($_SESSION["tipo"])){
-                 echo '<a href="registro.php">Registrarse</a>';
-                 }else{
-                 if ($_SESSION["tipo"]=='admin'){
-                 echo '<a href="admin.php">Panel de Control</a>';
-                 }elseif ($_SESSION["tipo"]=='user') {
-                 echo '<a href="usuario.php">Panel de Control</a>';
-                 }
-                 }
-              ?>
-            </li>
+            <ul class="nav navbar-nav navbar-right">
+            <h3>Añadir nueva Categoría</h3>
             </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -86,7 +57,12 @@
 	    <div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 centered">
-				
+				<?php if (!isset($_POST["categoria"])) :?> 
+                    <form  method="post">
+                        <h3>Nueva categoría</h3>
+                        <span>Categoría </span><input type="text" name="categoria"/><p></p>
+                        <input type="submit" name="enviar" value="Insertar">
+                    </form>
 				</div><!-- /col-lg-8 -->
 			</div><!-- /row -->
 	    </div> <!-- /container -->
@@ -117,7 +93,32 @@
 		
 		</div>
 	</div>
-	
+	<?php else :?>
+        <?php
+        $cat= $_POST["categoria"];
+
+        $connection = new mysqli("localhost", "felipe", "2asirtriana", "proyecto");
+
+        if ($connection->connect_errno) {
+            printf("Connection failed: %s\n", $connection->connect_error);
+            exit();
+        }
+        $sql="INSERT INTO categoria (idcategoria,nombre)
+        VALUES (NULL,'$cat')";
+        
+
+        if ($result = $connection->query($sql)){
+            echo "Categoría insertada correctamente";
+            echo "<br>";
+            echo '<a href="admin.php"><input type="button" value="Volver al panel de control"></a>';
+        } else {
+            echo "Error en la consulta";
+        }
+
+        unset($connection);
+
+        ?>
+        <?php endif ?>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

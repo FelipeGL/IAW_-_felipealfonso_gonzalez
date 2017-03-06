@@ -120,6 +120,7 @@
                 $user=$_SESSION['nick'];
                                          if ($result = $connection->query("SELECT noticias.*, categoria.nombre FROM noticias join categorias where noticias.fkcategoria=categoria.idcategoria;")) {
                                              echo"<table style='border:1px solid black'>";
+                                             echo"<h3>Lista de noticias</h3>";
                                              echo"<thead>";
                                              echo"<tr>";
                                              echo"<th>ID </th>";
@@ -157,6 +158,11 @@
 			echo'</div>';
         echo'</div>';
                 ?>
+                <div class="col-lg-8 col-lg-offset-2 centered">
+                <p></p>
+                <p></p>
+        <a href="insertnoticia.php"><input type="button" value="Añadir nueva noticia"/></a>
+        </div>
 	</div><!-- /ww -->
 	
 	
