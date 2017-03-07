@@ -2,6 +2,10 @@
 <html lang="en">
     <?php
     session_start();
+    if ($_SESSION["tipo"]!=='user'){
+        session_destroy();
+        header("Location: error.php");
+    }
     ?>
     <head>
         <meta charset="utf-8">
@@ -46,36 +50,7 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="categorias.php">Categorias</a></li>
-                        <li></li>
-                        <li>
-                            <?php
-                            if (!isset($_SESSION["tipo"])){
-                                echo '<a href="inicio.php">Iniciar sesión</a>';
-                            }
-                            ?>
-                        </li>
-
-                        <li>
-                            <?php
-                            if (isset($_SESSION["nick"])){
-                                echo '<span>Has iniciado sesión como '.$_SESSION['nick'].' '.'<a href="logout.php"><span style="color:red;font-weight:bold">Cerrar sesión</span></a></span>';
-                            } 
-                            ?>
-                        </li>    
-                        <li>
-                            <?php
-                            if (!isset($_SESSION["tipo"])){
-                                echo '<a href="registro.php">Registrarse</a>';
-                            }else{
-                                if ($_SESSION["tipo"]=='admin'){
-                                    echo '<a href="admin.php">Panel de Control</a>';
-                                }elseif ($_SESSION["tipo"]=='user') {
-                                    echo '<a href="usuario.php">Panel de Control</a>';
-                                }
-                            }
-                            ?>
-                        </li>
+                        <h3>CAMBIO DE CONTRASEÑA</h3>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -86,36 +61,35 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 centered">
-                        <?php 
-                        include("conexion.php"); // Incluimos nuestro archivo de conexión con la base de datos
+                        <?php if (!isset($_POST["nick"])) :?> 
+                        <form  method="post">
+                            <span>Nick: </span><input type="text" name="nick"/><p></p>
+                            <span>Nueva contraseña: </span><input type="password" name="pass1"/><p></p>
+                            <input type="submit" name="enviar" value="Cambiar contraseña">
+                        </form>
+                        <?php else :?>
+                        <?php
+                        $connection = new mysqli("localhost", "felipe", "2asirtriana", "proyecto");
 
-                        
-                        if ($result = $connection->query("SELECT titulo, fecha, texto FROM noticias WHERE id = '".$idnoticia."' LIMIT 1;")) {
-
-                            while($obj = $result->fetch_object()) {
-                                echo ' 
-                <table> 
-                    <tr> 
-                        <td>'.$columna['titulo'].'</td> 
-                        <td>'.$columna['fecha'].'</td> 
-                    </tr> 
-                    <tr> 
-                        <td colspan="2">'.$columna['texto'].'</td> 
-                    </tr> 
-                    <tr> 
-                        <td><a href="./">Atrás</a></td> 
-                    </tr> 
-                </table> 
-                '; 
-                            
-                            }
-                            $result->close();
-                            unset($obj);
-                            unset($connection);
+                        if ($connection->connect_errno) {
+                            printf("Connection failed: %s\n", $connection->connect_error);
+                            exit();
                         }
+                        
+                        $nick= $_POST["nick"];
+                        $passnueva= $_POST["pass1"];
+                        
+                         $sql= query("UPDATE usuarios SET password=md5('$passnueva') WHERE nick='$nick'");
+                        if ($result = $connection->query($sql)){
+                             echo "La contraseña ha sido cambiada exitoamente.";
+                            echo '<a href="user.php"><input type="button" value="Panel de usuario"></a>';
+                        } else {
+                            echo "Error en la consulta";
+                        }
+                    
+                        unset($connection);
                         ?>
-
-
+                        <?php endif ?>
                     </div><!-- /col-lg-8 -->
                 </div><!-- /row -->
             </div> <!-- /container -->
