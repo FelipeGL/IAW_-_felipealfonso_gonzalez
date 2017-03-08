@@ -118,7 +118,7 @@
             exit();
         }
                 $user=$_SESSION['nick'];
-                                         if ($result = $connection->query("SELECT noticias.*, categoria.nombre FROM noticias join categorias where noticias.fkcategoria=categoria.idcategoria;")) {
+                                         if ($result = $connection->query("SELECT noticias.*, categoria.nombre FROM noticias join categoria where noticias.idcategoria=categoria.idcategoria;")) {
                                              echo"<table style='border:1px solid black'>";
                                              echo"<h3>Lista de noticias</h3>";
                                              echo"<thead>";

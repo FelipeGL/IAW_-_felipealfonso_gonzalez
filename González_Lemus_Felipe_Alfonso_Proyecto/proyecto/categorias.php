@@ -89,32 +89,23 @@
 			</div>
 		</div>
 		<div class="row mt centered">	
-			<div class="col-lg-4">
-				<a class="zoom green" href="work01.html"><img class="img-responsive" src="assets/img/portfolio/port01.jpg" alt="" /></a>
-				<p>APE</p>
-			</div>
-			<div class="col-lg-4">
-				<a class="zoom green" href="work01.html"><img class="img-responsive" src="assets/img/portfolio/port02.jpg" alt="" /></a>
-				<p>RAIDERS</p>
-			</div>
-			<div class="col-lg-4">
-				<a class="zoom green" href="work01.html"><img class="img-responsive" src="assets/img/portfolio/port03.jpg" alt="" /></a>
-				<p>VIKINGS</p>
-			</div>
-		</div><!-- /row -->
-		<div class="row mt centered">	
-			<div class="col-lg-4">
-				<a class="zoom green" href="work01.html"><img class="img-responsive" src="assets/img/portfolio/port04.jpg" alt="" /></a>
-				<p>YODA</p>
-			</div>
-			<div class="col-lg-4">
-				<a class="zoom green" href="work01.html"><img class="img-responsive" src="assets/img/portfolio/port05.jpg" alt="" /></a>
-				<p>EMPERORS</p>
-			</div>
-			<div class="col-lg-4">
-				<a class="zoom green" href="work01.html"><img class="img-responsive" src="assets/img/portfolio/port06.jpg" alt="" /></a>
-				<p>CHIEFS</p>
-			</div>
+            <?php 
+                        include("conexion.php"); // Incluimos nuestro archivo de conexión con la base de datos
+
+                        
+                        if ($result = $connection->query("SELECT nombre FROM categoria;")) {
+
+                            while($obj = $result->fetch_object()) {
+                                echo '<div class="col-lg-4">';
+                                    echo "<p>$obj->nombre</p>";
+			                    echo'</div>'; 
+                            
+                            }
+                            $result->close();
+                            unset($obj);
+                            unset($connection);
+                        }
+                        ?>
 		</div><!-- /row -->
 	</div>
 	

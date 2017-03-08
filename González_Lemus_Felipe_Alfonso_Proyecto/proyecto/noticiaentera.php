@@ -36,8 +36,13 @@
         <!-- Static navbar -->
         <div class="navbar navbar-inverse navbar-static-top">
             <div class="container">
-                <div class="navbar-header" width="350px;">
-                    <a class="navbar-brand" href="index.php"><img src="kitect.png" width='3%';>KITECT.COM</a>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.php">KITECT.COM</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -82,16 +87,20 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 centered">
                         <?php 
-                        include("conexion.php"); // Incluimos nuestro archivo de conexión con la base de datos
+                        include("conexion.php");
 
-                        
-                        if ($result = $connection->query("SELECT titulo,cuerpo, fecha_de_creacion FROM noticias LIMIT 6;")) {
+                        $not=$GET["idnoticia"];
+                        if ($result = $connection->query("SELECT idnoticia,titulo,cuerpo, fecha_de_creacion, fecha_modificacion FROM noticias where idnoticia=$not;")) {
 
                             while($obj = $result->fetch_object()) {
-                                echo '<div class="col-lg-4">';
-                                    echo "<h3>$obj->titulo</h3>";
-                                    echo "<p>$obj->fecha_de_creacion</p>";
-                                    echo '<a href="noticiaentera.php"><p>Leer más</p></a>';
+                                echo '<div class="col-lg-8 col-lg-offset-2 centered">';
+                                    echo "<b><h3>$obj->titulo</h3></b>";
+                                    if($obj->fecha_modificacion!=NULL) {
+                                    echo'<p>Se creó el: '.$obj->fecha_de_creacion.'.  Se ha modificado el: '.$obj->fecha_modificacion.'</p>';
+                                    } else{
+                                    echo'<p>Se creó el: '.$obj->fecha_de_creacion.'</p>';
+                                    }
+                                echo "<p>$obj->cuerpo</p>";
 			                    echo'</div>'; 
                             
                             }
