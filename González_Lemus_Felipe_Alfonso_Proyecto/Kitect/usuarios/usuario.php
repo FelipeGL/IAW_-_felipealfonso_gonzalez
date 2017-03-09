@@ -18,15 +18,15 @@
         <title>Kitect.com</title>
 
         <!-- Bootstrap core CSS -->
-        <link href="assets/css/bootstrap.css" rel="stylesheet">
+        <link href="../assets/css/bootstrap.css" rel="stylesheet">
 
 
         <!-- Custom styles for this template -->
-        <link href="assets/css/main.css" rel="stylesheet">
+        <link href="../assets/css/main.css" rel="stylesheet">
 
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="assets/js/hover.zoom.js"></script>
-        <script src="assets/js/hover.zoom.conf.js"></script>
+        <script src="../assets/js/hover.zoom.js"></script>
+        <script src="../assets/js/hover.zoom.conf.js"></script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -46,7 +46,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.php"><img src="kitect.png" width='4%';>KITECT.COM</a>
+                    <a class="navbar-brand" href="../index.php"><img src="../iconos/kitect.png" width='4%';>KITECT.COM</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -62,7 +62,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 centered">
                         <?php
-                        include("conexion.php");
+                        include("../conexion/conexion.php");
 
 
                         if ($connection->connect_errno) {
@@ -89,8 +89,8 @@
                                 echo "<td>".$obj->apellidos."</td>";
                                 echo "<td>".$obj->correo."</td>";
                                 echo "<td>
-                                                 <a href='borrar.php?id=$obj->idusuario'>
-                                                 <img src='borraruser.png' width='10%';/>
+                                                 <a href='../delete_update/deleteuser.php?id=$obj->idusuario'>
+                                                 <img src='../iconos/borraruser.png' width='10%';/>
                                                </a></td>";
                                 echo "</tr>";
                             }
@@ -98,17 +98,17 @@
                             unset($obj);
                             unset($connection);
                         }
-                        
+
                         $nick=$_SESSION['nick'];
-                        include("conexion.php");
+                        include("../conexion/conexion.php");
                         $sql= "SELECT * FROM usuarios WHERE nick='$nick'";
                         if ($result = $connection->query($sql)){
                             $obj = $result->fetch_object();
                             $user=$obj->idusuario; 
                         }
-                        
-                        
-                        include("conexion.php");
+
+
+                        include("../conexion/conexion.php");
                         if ($result = $connection->query("SELECT * FROM suscripcion JOIN categoria ON suscripcion.idcategoria=categoria.idcategoria where idusuario='$user';")) {
                             echo'<div>';
                             echo"<table style='border:1px solid black'>";
@@ -120,13 +120,13 @@
                             echo"</thead>";
                             while($obj = $result->fetch_object()) {
                                 echo "<tr>";
-                                echo "<td>".$obj->nombre."</td>";
+                                echo "<td><a href='../categoria/categoriadeterminada.php?id=$obj->idcategoria'>.$obj->nombre.</a></td>";
                                 echo "<td>
-                                                 <a href='deletesub.php?idcategoria=$obj->idcategoria'>
-                                                 <img src='cancelarsub.png' width='90%';/>
+                                                 <a href='../delete_update/deletesub.php?idcategoria=$obj->idcategoria'>
+                                                 <img src='../iconos/cancelarsub.png' width='90%';/>
                                                </a></td>";
                                 echo "</tr>";
-                                
+
                             }
                             $result->close();
                             unset($obj);
@@ -137,7 +137,7 @@
                         ?>
                         <br>
                         <br>
-                        <a href="updatepass.php"><input type="button" value="Cambiar la contraseña"/></a>
+                        <a href="../delete_update/updatepass.php"><input type="button" value="Cambiar la contraseña"/></a>
                     </div><!-- /col-lg-8 -->
                 </div><!-- /row -->
             </div> <!-- /container -->
@@ -153,26 +153,14 @@
 
         <!-- +++++ Footer Section +++++ -->
 
-        <div id="footer">
-            <div class="container">
-                <div class="row">				
-                    <div class="col-lg-4">
-                        <h4>Contactos</h4>
-                        <p>
-                            <a href="#">Twitter</a><br/>
-                            <a href="#">Facebook</a>
-                        </p>
-                    </div><!-- /col-lg-4 -->
-
-                </div>
-
-            </div>
-        </div>
+        <?php
+        include("../pie.php")
+        ?>
 
 
         <!-- Bootstrap core JavaScript
 ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
     </body>
 </html>

@@ -18,15 +18,15 @@
         <title>Kitect.com</title>
 
         <!-- Bootstrap core CSS -->
-        <link href="assets/css/bootstrap.css" rel="stylesheet">
+        <link href="../assets/css/bootstrap.css" rel="stylesheet">
 
 
         <!-- Custom styles for this template -->
-        <link href="assets/css/main.css" rel="stylesheet">
+        <link href="../assets/css/main.css" rel="stylesheet">
 
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="assets/js/hover.zoom.js"></script>
-        <script src="assets/js/hover.zoom.conf.js"></script>
+        <script src="../assets/js/hover.zoom.js"></script>
+        <script src="../assets/js/hover.zoom.conf.js"></script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -46,7 +46,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.php"><img src="kitect.png" width='4%';>KITECT.COM</a>
+                    <a class="navbar-brand" href="../index.php"><img src="../iconos/kitect.png" width='4%';>KITECT.COM</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -58,13 +58,13 @@
 
         <!-- +++++ Welcome Section +++++ -->
         <div id="ww">
-            
+
             <?php
             echo'<div class="container">';
             echo'<div class="row">';
             echo'<div class="col-lg-8 col-lg-offset-2 centered">';
 
-            include("conexion.php");
+            include("../conexion/conexion.php");
 
 
             if ($connection->connect_errno) {
@@ -91,8 +91,8 @@
                     echo "<td>".$obj->correo."</td>";
                     echo "<td>".$obj->fecha_reg."</td>";
                     echo "<td>
-                                                 <a href='deleteuser.php?idusuario=$obj->idusuario'>
-                                                 <img src='eliminar.png' width='10%';/>
+                                                 <a href='../delete_update/deleteuser.php?idusuario=$obj->idusuario'>
+                                                 <img src='../iconos/eliminar.png' width='10%';/>
                                                </a></td>";
                     echo "</tr>";
                 }
@@ -106,13 +106,13 @@
             echo'</div>';
             echo'</div>';
             ?>
-          
+
             <?php
             echo'<div class="container">';
             echo'<div class="row">';
             echo'<div class="col-lg-8 col-lg-offset-2 centered">';
 
-            include("conexion.php");
+            include("../conexion/conexion.php");
 
 
             if ($connection->connect_errno) {
@@ -141,12 +141,12 @@
                     echo "<td>".$obj->fecha_modificacion."</td>";
                     echo "<td>".$obj->nombre."</td>";
                     echo "<td>
-                                                     <a href='deletenoticia.php?idnoticia=$obj->idnoticia'>
-                                                     <img src='delete.png' width='20%';/>
+                                                     <a href='../delete_update/deletenoticia.php?idnoticia=$obj->idnoticia'>
+                                                     <img src='../iconos/delete.png' width='20%';/>
                                                    </a></td>";
                     echo "<td>
                                                    <a href='updatenoticia.php?id=$obj->idnoticia'>
-                                                   <img src='update.png' width='20%';/>
+                                                   <img src='../iconos/update.png' width='20%';/>
                                                  </a></td>";
                     echo "</tr>";
                 }
@@ -166,7 +166,7 @@
             echo'<div class="row">';
             echo'<div class="col-lg-8 col-lg-offset-2 centered">';
 
-            include("conexion.php");
+            include("../conexion/conexion.php");
 
 
             if ($connection->connect_errno) {
@@ -187,8 +187,8 @@
                     echo "<td>".$obj->idcategoria."</td>";
                     echo "<td>".$obj->nombre."</td>";
                     echo "<td>
-                                                 <a href='deletecategoria.php?idcategoria=$obj->idcategoria'>
-                                                 <img src='deletecategoria.png' width='10%';/>
+                                                 <a href='../delete_update/deletecategoria.php?idcategoria=$obj->idcategoria'>
+                                                 <img src='../iconos/deletecategoria.png' width='10%';/>
                                                </a></td>";
                     echo "</tr>";
                 }
@@ -205,8 +205,8 @@
             <div class="col-lg-8 col-lg-offset-2 centered">
                 <p></p>
                 <p></p>
-                <a href="insertnoticia.php"><input type="button" value="Añadir nueva noticia"/></a>
-                <a href="nuevacategoria.php"><input type="button" value="Añadir nueva categoría"></a>
+                <a href="../noticias/insertnoticia.php"><input type="button" value="Añadir nueva noticia"/></a>
+                <a href="../categoria/nuevacategoria.php"><input type="button" value="Añadir nueva categoría"></a>
             </div>
         </div><!-- /ww -->
 
@@ -220,26 +220,14 @@
 
         <!-- +++++ Footer Section +++++ -->
 
-        <div id="footer">
-            <div class="container">
-                <div class="row">				
-                    <div class="col-lg-4">
-                        <h4>Contactos</h4>
-                        <p>
-                            <a href="#">Twitter</a><br/>
-                            <a href="#">Facebook</a>
-                        </p>
-                    </div><!-- /col-lg-4 -->
-
-                </div>
-
-            </div>
-        </div>
+        <?php
+        include("../pie.php")
+        ?>
 
 
         <!-- Bootstrap core JavaScript
 ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
     </body>
 </html>

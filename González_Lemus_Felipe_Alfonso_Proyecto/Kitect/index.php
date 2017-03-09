@@ -37,16 +37,16 @@
         <div class="navbar navbar-inverse navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.php"><img src="kitect.png" width='4%';>KITECT.COM</a>
+                    <a class="navbar-brand" href="index.php"><img src="iconos/kitect.png" width='4%';>KITECT.COM</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="categorias.php">Categorias</a></li>
+                        <li><a href="categoria/categorias.php">Categorias</a></li>
                         <li></li>
                         <li>
                             <?php
                             if (!isset($_SESSION["tipo"])){
-                                echo '<a href="inicio.php">Iniciar sesión</a>';
+                                echo '<a href="inicio_registro/inicio.php">Iniciar sesión</a>';
                             }
                             ?>
                         </li>
@@ -54,19 +54,19 @@
                         <li>
                             <?php
                             if (isset($_SESSION["nick"])){
-                                echo '<span>Has iniciado sesión como '.$_SESSION['nick'].' '.'<a href="logout.php"><span style="color:red;font-weight:bold">Cerrar sesión</span></a></span>';
+                                echo '<span>Has iniciado sesión como '.$_SESSION['nick'].' '.'<a href="inicio_registro/logout.php"><span style="color:red;font-weight:bold">Cerrar sesión</span></a></span>';
                             } 
                             ?>
                         </li>    
                         <li>
                             <?php
                             if (!isset($_SESSION["tipo"])){
-                                echo '<a href="registro.php">Registrarse</a>';
+                                echo '<a href="inicio_registro/registro.php">Registrarse</a>';
                             }else{
                                 if ($_SESSION["tipo"]=='admin'){
-                                    echo '<a href="admin.php">Panel de Control</a>';
+                                    echo '<a href="usuarios/admin.php">Panel de Control</a>';
                                 }elseif ($_SESSION["tipo"]=='user') {
-                                    echo '<a href="usuario.php">Panel de Control</a>';
+                                    echo '<a href="usuarios/usuario.php">Panel de Control</a>';
                                 }
                             }
                             ?>
@@ -82,18 +82,18 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 centered">
                         <?php 
-                        include("conexion.php");
+                        include("conexion/conexion.php");
 
-                        
+
                         if ($result = $connection->query("SELECT idnoticia,titulo,cuerpo, fecha_de_creacion FROM noticias ORDER BY fecha_de_creacion DESC LIMIT 6;")) {
 
                             while($obj = $result->fetch_object()) {
                                 echo '<div class="col-lg-4">';
-                                    echo "<h3>$obj->titulo</h3>";
-                                    echo "<p>$obj->fecha_de_creacion</p>";
-                                    echo "<a href='noticiaentera.php?idnoticia=$obj->idnoticia'><p>Leer más</p></a>";
-			                    echo'</div>'; 
-                            
+                                echo "<h3>$obj->titulo</h3>";
+                                echo "<p>$obj->fecha_de_creacion</p>";
+                                echo "<a href='noticias/noticiaentera.php?idnoticia=$obj->idnoticia'><p>Leer más</p></a>";
+                                echo'</div>'; 
+
                             }
                             $result->close();
                             unset($obj);
@@ -114,23 +114,9 @@
 
 
         <!-- +++++ Footer Section +++++ -->
-
-        <div id="footer">
-            <div class="container">
-                <div class="row">				
-                    <div class="col-lg-4">
-                        <h4>Contactos</h4>
-                        <p>
-                            <a href="#">Twitter</a><br/>
-                            <a href="#">Facebook</a>
-                        </p>
-                    </div><!-- /col-lg-4 -->
-
-                </div>
-
-            </div>
-        </div>
-
+        <?php
+        include("pie.php")
+        ?>
 
         <!-- Bootstrap core JavaScript
 ================================================== -->
