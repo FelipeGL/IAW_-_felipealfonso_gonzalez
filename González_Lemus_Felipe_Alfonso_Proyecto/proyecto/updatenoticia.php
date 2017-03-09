@@ -2,9 +2,10 @@
 <html lang="en">
     <?php
     session_start();
-    if ($_SESSION["tipo"]!=='user'){
+    if ($_SESSION["tipo"]!=='admin'){
         session_destroy();
         header("Location: error.php");
+        $id= $_GET["id"];
     }
     ?>
     <head>
@@ -50,63 +51,66 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <h3>PANEL DE CONTROL DE USUARIO</h3>
+                        <h3>MODIFICAR LA NOTICIA</h3>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </div>
-
+            
         <!-- +++++ Welcome Section +++++ -->
         <div id="ww">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2 centered">
-                        <?php
-                        $connection = new mysqli("localhost", "felipe", "2asirtriana", "proyecto");
+            <div class="col-lg-8 col-lg-offset-2 centered">
+                <?php if (!isset($_POST["titulo"])) : ?>
+                <form method="post" action="updatenoticia.php">
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Título</label>
+                            <input type="text" class="form-control" name="titulo" placeholder="Titulo">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Cuerpo de la noticia</label>
+                            <textarea rows="5" class="form-control" name="cuerpo" placeholder="Cuerpo de la noticia"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12">
+                            <button type="submit">Enviar</button>
+                        </div>
+                </form>
+                <?php else :?>
+                
+                <?php 
+                include("conexion.php");
 
+                
+                if ($connection->connect_errno) {
+                    printf("Connection failed: %s\n", $connection->connect_error);
+                    exit();
+                }
+                
+                
+                $titulo = $_POST['titulo'];
+                $cuerpo = nl2br($_POST['cuerpo']);
 
-                        if ($connection->connect_errno) {
-                            printf("Connection failed: %s\n", $connection->connect_error);
-                            exit();
-                        }
-                        $usuario=$_SESSION['nick'];
-                        if ($result = $connection->query("SELECT * FROM usuarios where nick='$usuario';")) {
-                            echo'<div>';
-                            echo"<table style='border:1px solid black'>";
-                            echo"<h3>Datos de $usuario</h3>";
-                            echo"<thead>";
-                            echo"<tr>";
-                            echo"<th>IdUsuario </th>";
-                            echo"<th>Nombre</th>";
-                            echo"<th>Apellidos</th>";
-                            echo"<th>Correo</th>";
-                            echo "<th></th>";
-                            echo"</thead>";
-                            while($obj = $result->fetch_object()) {
-                                echo "<tr>";
-                                echo "<td>".$obj->idusuario."</td>";
-                                echo "<td>".$obj->nombre."</td>";
-                                echo "<td>".$obj->apellidos."</td>";
-                                echo "<td>".$obj->correo."</td>";
-                                echo "<td>
-                                                 <a href='borrar.php?id=$obj->idusuario'>
-                                                 <img src='borraruser.png' width='10%';/>
-                                               </a></td>";
-                                echo "</tr>";
-                            }
-                            $result->close();
-                            unset($obj);
-                            unset($connection);
-                        }
-                        echo"</table>";
-                        echo"</div>";
-                        ?>
-                        <br>
-                        <br>
-                        <a href="updatepass.php"><input type="button" value="Cambiar la contraseña"/></a>
-                    </div><!-- /col-lg-8 -->
-                </div><!-- /row -->
-            </div> <!-- /container -->
+                $modificar = "UPDATE noticias SET titulo='$titulo', fecha_modificacion=NOW(), cuerpo='$cuerpo' WHERE idnoticia='$id'";
+
+                if($result = $connection->query($modificar)) 
+                { 
+                    echo 'La noticia se modificó corectamente';
+                } 
+                else 
+                { 
+                    echo 'La noticia no se modificó'; 
+                } 
+                
+
+                ?>  
+                
+                <?php endif ?>
+            </div>
         </div><!-- /ww -->
 
 

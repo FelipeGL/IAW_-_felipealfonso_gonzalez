@@ -46,7 +46,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.php">KITECT.COM</a>
+                    <a class="navbar-brand" href="index.php"><img src="kitect.png" width='4%';>KITECT.COM</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -79,10 +79,10 @@
                         $nick= $_POST["nick"];
                         $passnueva= $_POST["pass1"];
                         
-                         $sql= query("UPDATE usuarios SET password=md5('$passnueva') WHERE nick='$nick'");
+                         $sql= "UPDATE usuarios SET password=md5('$passnueva') WHERE nick='$nick'";
                         if ($result = $connection->query($sql)){
                              echo "La contraseña ha sido cambiada exitoamente.";
-                            echo '<a href="user.php"><input type="button" value="Panel de usuario"></a>';
+                            header("Location: inicio.php");
                         } else {
                             echo "Error en la consulta";
                         }

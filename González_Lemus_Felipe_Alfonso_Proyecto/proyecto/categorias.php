@@ -42,7 +42,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">KITECT.COM</a>
+          <a class="navbar-brand" href="index.php"><img src="kitect.png" width='4%';>KITECT.COM</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -63,7 +63,7 @@
                     } 
                     ?>
                   </li>    
-               <li>
+                <li>
                   <?php
                   if (!isset($_SESSION["tipo"])){
                  echo '<a href="registro.php">Registrarse</a>';
@@ -90,14 +90,15 @@
 		</div>
 		<div class="row mt centered">	
             <?php 
-                        include("conexion.php"); // Incluimos nuestro archivo de conexión con la base de datos
+                        include("conexion.php");
 
-                        
-                        if ($result = $connection->query("SELECT nombre FROM categoria;")) {
+                                
+                
+                        if ($result = $connection->query("SELECT * FROM categoria;")) {
 
                             while($obj = $result->fetch_object()) {
                                 echo '<div class="col-lg-4">';
-                                    echo "<p>$obj->nombre</p>";
+                                echo "<a href='categoriadeterminada.php?id=$obj->idcategoria'><p>$obj->nombre</p></a>";
 			                    echo'</div>'; 
                             
                             }
@@ -115,7 +116,7 @@
 	<div id="footer">
 		<div class="container">
 			<div class="row">				
-				<div class="col-lg-4">
+				<div class="col-lg-6 col-lg-offset-3 centered">
 					<h4>Contactos</h4>
 					<p>
 						<a href="#">Twitter</a><br/>

@@ -86,16 +86,24 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 centered">
+                        
                         <?php 
                         include("conexion.php");
                         
-                        $not=$_GET["idnoticia"]; 
+                        $id=$_GET["id"]; 
+                        var_dump($id);
                         
-                        if ($result = $connection->query("SELECT idnoticia,titulo,cuerpo, fecha_de_creacion, fecha_modificacion FROM noticias
-                         where idnoticia=$not;")) {
-
+                       
+                        
+                        if ($result = $connection->query("SELECT idnoticia,titulo,cuerpo,fecha_de_creacion,fecha_modificacion,categoria.nombre FROM noticias JOIN categoria ON categoria.idcategoria=noticias.idcategoria WHERE categoria.idcategoria=$id;")) {
+                            
+                            echo "<h1>Noticias de $obj->nombre</h1>";
+                            
                             while($obj = $result->fetch_object()) {
+                                
                                 echo '<div class="col-lg-8 col-lg-offset-2 centered">';
+                                    echo "<br>";
+                                    echo "<br>";
                                     echo "<b><h3>$obj->titulo</h3></b>";
                                     if($obj->fecha_modificacion!=NULL) {
                                     echo'<p>Se creó el: '.$obj->fecha_de_creacion.'.  Se ha modificado el: '.$obj->fecha_modificacion.'</p>';
@@ -111,8 +119,9 @@
                                 echo "<form method='get'>
                     <a href='comentario.php?idnoticia=$obj->idnoticia'><input type='button' value='Añadir comentario'>
                     </a></form>";
+                                //<a href='comentario.php?idnoticia=$obj->idnoticia'><input type='button' value='Añadir un comentario'></a>
 			                    echo'</div>'; 
-                            //<a href='comentario.php?idnoticia=$obj->idnoticia'><input type='button' value='Añadir un comentario'></a>
+                            
                             }
                             $result->close();
                             unset($obj);

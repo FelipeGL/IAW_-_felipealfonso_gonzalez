@@ -36,8 +36,8 @@
         <!-- Static navbar -->
         <div class="navbar navbar-inverse navbar-static-top">
             <div class="container">
-                <div class="navbar-header" width="350px;">
-                    <a class="navbar-brand" href="index.php"><img src="kitect.png" width='3%';>KITECT.COM</a>
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.php"><img src="kitect.png" width='4%';>KITECT.COM</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -82,16 +82,16 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 centered">
                         <?php 
-                        include("conexion.php"); // Incluimos nuestro archivo de conexión con la base de datos
+                        include("conexion.php");
 
                         
-                        if ($result = $connection->query("SELECT titulo,cuerpo, fecha_de_creacion FROM noticias LIMIT 6;")) {
+                        if ($result = $connection->query("SELECT idnoticia,titulo,cuerpo, fecha_de_creacion FROM noticias ORDER BY fecha_de_creacion DESC LIMIT 6;")) {
 
                             while($obj = $result->fetch_object()) {
                                 echo '<div class="col-lg-4">';
                                     echo "<h3>$obj->titulo</h3>";
                                     echo "<p>$obj->fecha_de_creacion</p>";
-                                    echo '<a href="noticiaentera.php"><p>Leer más</p></a>';
+                                    echo "<a href='noticiaentera.php?idnoticia=$obj->idnoticia'><p>Leer más</p></a>";
 			                    echo'</div>'; 
                             
                             }
@@ -100,8 +100,6 @@
                             unset($connection);
                         }
                         ?>
-
-
                     </div><!-- /col-lg-8 -->
                 </div><!-- /row -->
             </div> <!-- /container -->

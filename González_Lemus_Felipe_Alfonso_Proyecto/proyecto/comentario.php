@@ -1,3 +1,7 @@
+<?php
+  session_start();
+    $id=$_GET["idnoticia"];
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,7 +32,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body> 
 
     <!-- Static navbar -->
     <div class="navbar navbar-inverse navbar-static-top">
@@ -42,21 +46,67 @@
           <a class="navbar-brand" href="index.php"><img src="kitect.png" width='4%';>KITECT.COM</a>
         </div>
         <div class="navbar-collapse collapse">
-          
+          <ul class="nav navbar-nav navbar-right">
+              <h3>Añadir un nuevo comentario</h3>
+            </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
 
 	<!-- +++++ Welcome Section +++++ -->
 	<div id="ww">
+        <?php if (!isset($_POST["comentario"])) : ?>
 	    <div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 centered">
-				    <h4>UPS!! HA OCURRIDO UN ERROR INESPERADO!!</h4>
+				<form method="post" action="comentario.php">
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Comentario</label>
+                            <textarea rows="5" class="form-control" name="comentario"></textarea>
+                                <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <button type="submit">Enviar comentario</button>
+                        </div>
+                    </div>
+                </form>
 				</div><!-- /col-lg-8 -->
 			</div><!-- /row -->
 	    </div> <!-- /container -->
 	</div><!-- /ww -->
+      <?php else :?>
+
+          <?php
+                  include("conexion.php");
+                
+                   if ($connection->connect_errno) {
+                     printf("Connection failed: %s\n", $connection->connect_error);
+                       exit();
+                     }
+                    
+                    $nick=$_SESSION['nick'];
+                    $comentario = nl2br($_POST['comentario']);
+            
+            $sql="INSERT INTO comentario (idcomentario,contenido,fecha,usuario,idnoticia)
+             VALUES(NULL,'$comentario',sysdate(),'$nick','$id')";
+            var_dump($sql);
+            if ($result = $connection->query($sql)){
+            echo "El comentario se ha insertado correctamente";
+            echo "<br>";
+            header("Location: index.php");
+            } else {
+            echo "Error en la consulta";
+            }
+
+            unset($connection);
+
+            ?>
+
+          <?php endif ?>
 	
 	
 	<!-- +++++ Projects Section +++++ -->

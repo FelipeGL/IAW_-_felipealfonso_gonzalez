@@ -46,7 +46,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">KITECT.COM</a>
+          <a class="navbar-brand" href="index.php"><img src="kitect.png" width='4%';>KITECT.COM</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -62,7 +62,7 @@
 	    <div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 centered">
-				<form name="inisesion" id="sesion" novalidate method="post" enctype="multipart/form-data">
+				<form method="post" action="insertnoticia.php">
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Título</label>
@@ -80,9 +80,10 @@
                     <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Categoría</label>
-                            <select class="form-control" name="categoria" placeholder="Categoría" id="categoria"> 
+                            <br>    
+                        
                             <?php
-                              $connection = new mysqli("localhost", "felipe", "2asirtriana", "proyecto");
+                              include("conexion.php");
                               if ($connection->connect_errno) {
                                   printf("Connection failed: %s\n", $connection->connect_error);
                                   exit();
@@ -90,14 +91,17 @@
                                          if ($result = $connection->query("SELECT *
                                             FROM categoria order by idcategoria;")) {
                                                  while($obj = $result->fetch_object()) {
-                                                  echo "<option value='$obj->idcategoria'>$obj->nombre</option>";
+                                                     echo "<input type='checkbox' value='$obj->idcategoria' name='categoria'>$obj->nombre<br>";
                                                  }
                                                  $result->close();
                                                  unset($obj);
                                                  unset($connection);
                                                }
                               ?>
-                                </select>
+                            
+                            
+                            
+                            
                             <a href="nuevacategoria.php"><input type="button" value="Añadir nueva categoría"></a>
                             <p></p>
                         </div>
@@ -117,7 +121,7 @@
       <?php else :?>
 
           <?php
-                  $connection = new mysqli("localhost", "felipe", "2asirtriana", "proyecto");
+                  include("conexion.php");
                 
                    if ($connection->connect_errno) {
                      printf("Connection failed: %s\n", $connection->connect_error);
@@ -134,7 +138,7 @@
             if ($result = $connection->query($sql)){
             echo "La noticia se ha creado correctamente";
             echo "<br>";
-            echo '<a href="index.php"><input type="button" value="Inicio"></a>';
+            header("Location: index.php");
             } else {
             echo "Error en la consulta";
             }

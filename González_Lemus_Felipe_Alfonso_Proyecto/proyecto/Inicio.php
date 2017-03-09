@@ -49,7 +49,7 @@
           $consulta="select * from usuarios where
           nick='".$_POST["nick"]."' and password=md5('".$_POST["pass"]."');";
 
-          var_dump($consulta);
+          //var_dump($consulta);
           
           if ($result = $connection->query($consulta)) {
 
@@ -79,10 +79,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">KITECT.COM</a>
+          <a class="navbar-brand" href="index.php"><img src="kitect.png" width='4%';>KITECT.COM</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+              <h3>Inicio de sesión</h3>
             </ul>
         </div><!--/.nav-collapse -->
       </div>

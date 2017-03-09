@@ -42,7 +42,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">KITECT.COM</a>
+          <a class="navbar-brand" href="index.php"><img src="kitect.png" width='4%';>KITECT.COM</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -97,7 +97,7 @@
         <?php
         $cat= $_POST["categoria"];
 
-        $connection = new mysqli("localhost", "felipe", "2asirtriana", "proyecto");
+        include("conexion.php");
 
         if ($connection->connect_errno) {
             printf("Connection failed: %s\n", $connection->connect_error);
@@ -110,7 +110,7 @@
         if ($result = $connection->query($sql)){
             echo "Categoría insertada correctamente";
             echo "<br>";
-            echo '<a href="admin.php"><input type="button" value="Volver al panel de control"></a>';
+            header("Location: admin.php");
         } else {
             echo "Error en la consulta";
         }
