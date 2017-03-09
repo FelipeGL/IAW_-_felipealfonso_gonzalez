@@ -5,7 +5,7 @@
     if ($_SESSION["tipo"]!=='admin'){
         session_destroy();
         header("Location: error.php");
-        $id= $_GET["id"];
+        
     }
     ?>
     <head>
@@ -65,17 +65,59 @@
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Título</label>
-                            <input type="text" class="form-control" name="titulo" placeholder="Titulo">
-                            <p class="help-block text-danger"></p>
+                            <?php
+                            include("conexion.php");
+                            
+                            $id= $_GET["id"];
+
+                            if ($connection->connect_errno) {
+                                printf("Connection failed: %s\n", $connection->connect_error);
+                                exit();
+                            }
+                                    if ($result = $connection->query("SELECT titulo
+                                    FROM noticias where idnoticia='$id';")) {
+                                    while($obj = $result->fetch_object()) {
+                                    echo"<input type='text' name='titulo' class='form-control' value='$obj->titulo' id='titulo'>";
+                                    echo "<p></p>";
+                                    }
+                                    $result->close();
+                                    unset($obj);
+                                    unset($connection);
+                                  }
+                                  ?>
                         </div>
                     </div>
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Cuerpo de la noticia</label>
-                            <textarea rows="5" class="form-control" name="cuerpo" placeholder="Cuerpo de la noticia"></textarea>
-                            <p class="help-block text-danger"></p>
+                            <?php
+                            include("conexion.php");
+
+                            if ($connection->connect_errno) {
+                                printf("Connection failed: %s\n", $connection->connect_error);
+                                exit();
+                            }
+                                    if ($result = $connection->query("SELECT cuerpo
+                                    FROM noticias where idnoticia='$id';")) {
+                                    while($obj = $result->fetch_object()) {
+                                    echo"<textarea rows='5' class='form-control' name='cuerpo' placeholder='Cuerpo de la noticia'>$obj->cuerpo</textarea>";
+                                    echo "<p></p>";
+                                    }
+                                    $result->close();
+                                    unset($obj);
+                                    unset($connection);
+                                  }
+                                  ?>
+                            
                         </div>
                     </div>
+                    <?php
+                    echo '<div class="row control-group">';
+                    echo '<div class="form-group col-xs-12 floating-label-form-group controls">';
+                    echo "<input name='id' value='$id' type='hidden'>";   
+                    echo '</div>';
+                    echo '</div>';
+                    ?>
                     <div class="form-group col-xs-12">
                             <button type="submit">Enviar</button>
                         </div>
@@ -94,12 +136,13 @@
                 
                 $titulo = $_POST['titulo'];
                 $cuerpo = nl2br($_POST['cuerpo']);
+                $idnot = $_POST['id'];
 
-                $modificar = "UPDATE noticias SET titulo='$titulo', fecha_modificacion=NOW(), cuerpo='$cuerpo' WHERE idnoticia='$id'";
+                $modificar = "UPDATE noticias SET titulo='$titulo', fecha_modificacion=NOW(), cuerpo='$cuerpo' WHERE idnoticia='$idnot'";
 
                 if($result = $connection->query($modificar)) 
                 { 
-                    echo 'La noticia se modificó corectamente';
+                    header("Location: index.php");
                 } 
                 else 
                 { 

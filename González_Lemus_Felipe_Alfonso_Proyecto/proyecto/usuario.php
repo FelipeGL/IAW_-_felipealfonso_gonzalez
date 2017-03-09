@@ -62,7 +62,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 centered">
                         <?php
-                        $connection = new mysqli("localhost", "felipe", "2asirtriana", "proyecto");
+                        include("conexion.php");
 
 
                         if ($connection->connect_errno) {
@@ -93,6 +93,40 @@
                                                  <img src='borraruser.png' width='10%';/>
                                                </a></td>";
                                 echo "</tr>";
+                            }
+                            $result->close();
+                            unset($obj);
+                            unset($connection);
+                        }
+                        
+                        $nick=$_SESSION['nick'];
+                        include("conexion.php");
+                        $sql= "SELECT * FROM usuarios WHERE nick='$nick'";
+                        if ($result = $connection->query($sql)){
+                            $obj = $result->fetch_object();
+                            $user=$obj->idusuario; 
+                        }
+                        
+                        
+                        include("conexion.php");
+                        if ($result = $connection->query("SELECT * FROM suscripcion JOIN categoria ON suscripcion.idcategoria=categoria.idcategoria where idusuario='$user';")) {
+                            echo'<div>';
+                            echo"<table style='border:1px solid black'>";
+                            echo"<h3>Suscripciones de $nick</h3>";
+                            echo"<thead>";
+                            echo"<tr>";
+                            echo"<th>Categoria</th>";
+                            echo "<th></th>";
+                            echo"</thead>";
+                            while($obj = $result->fetch_object()) {
+                                echo "<tr>";
+                                echo "<td>".$obj->nombre."</td>";
+                                echo "<td>
+                                                 <a href='deletesub.php?idcategoria=$obj->idcategoria'>
+                                                 <img src='cancelarsub.png' width='90%';/>
+                                               </a></td>";
+                                echo "</tr>";
+                                
                             }
                             $result->close();
                             unset($obj);

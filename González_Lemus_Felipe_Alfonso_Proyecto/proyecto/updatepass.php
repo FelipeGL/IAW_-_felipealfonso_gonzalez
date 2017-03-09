@@ -69,7 +69,7 @@
                         </form>
                         <?php else :?>
                         <?php
-                        $connection = new mysqli("localhost", "felipe", "2asirtriana", "proyecto");
+                        include("conexion.php");
 
                         if ($connection->connect_errno) {
                             printf("Connection failed: %s\n", $connection->connect_error);

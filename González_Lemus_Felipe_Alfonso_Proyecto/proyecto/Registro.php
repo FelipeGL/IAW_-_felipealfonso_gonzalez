@@ -101,7 +101,7 @@
         $correo= $_POST["email"];
         $password= $_POST["pass"];
 
-        $connection = new mysqli("localhost", "felipe", "2asirtriana", "proyecto");
+        include("conexion.php");
 
         if ($connection->connect_errno) {
             printf("Connection failed: %s\n", $connection->connect_error);

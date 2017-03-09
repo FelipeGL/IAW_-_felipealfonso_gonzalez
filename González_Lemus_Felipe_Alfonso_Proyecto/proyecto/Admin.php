@@ -91,7 +91,7 @@
                     echo "<td>".$obj->correo."</td>";
                     echo "<td>".$obj->fecha_reg."</td>";
                     echo "<td>
-                                                 <a href='borrar.php?idusuario=$obj->idusuario'>
+                                                 <a href='deleteuser.php?idusuario=$obj->idusuario'>
                                                  <img src='eliminar.png' width='10%';/>
                                                </a></td>";
                     echo "</tr>";

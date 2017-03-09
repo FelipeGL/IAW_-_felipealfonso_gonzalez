@@ -38,7 +38,7 @@
 <?php
         if (isset($_POST["nick"])) {
 
-          $connection = new mysqli("localhost", "felipe", "2asirtriana", "proyecto");
+          include("conexion.php");
             
           if ($connection->connect_errno) {
               printf("Connection failed: %s\n", $connection->connect_error);
@@ -54,7 +54,7 @@
           if ($result = $connection->query($consulta)) {
 
               if ($result->num_rows===0) {
-                echo "Datos inválidos";
+                    echo "<p>Datos invalidos</p>";  
               } else {
                 
                 $_SESSION["nick"]=$_POST["nick"];

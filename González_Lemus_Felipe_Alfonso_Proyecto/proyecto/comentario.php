@@ -1,6 +1,5 @@
 <?php
   session_start();
-    $id=$_GET["idnoticia"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,10 +62,18 @@
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Comentario</label>
-                            <textarea rows="5" class="form-control" name="comentario"></textarea>
+                            <textarea rows="2" class="form-control" name="comentario"></textarea>
                                 <p class="help-block text-danger"></p>
                         </div>
                     </div>
+                    <?php
+                    $id=$_GET["idnoticia"];
+                    echo '<div class="row control-group">';
+                    echo '<div class="form-group col-xs-12 floating-label-form-group controls">';
+                    echo "<input name='id' value='$id' type='hidden'>";   
+                    echo '</div>';
+                    echo '</div>';
+                    ?>
                     <br>
                     <div class="row">
                         <div class="form-group col-xs-12">
@@ -82,6 +89,7 @@
 
           <?php
                   include("conexion.php");
+                    $id=$_GET["idnoticia"];
                 
                    if ($connection->connect_errno) {
                      printf("Connection failed: %s\n", $connection->connect_error);
@@ -90,10 +98,11 @@
                     
                     $nick=$_SESSION['nick'];
                     $comentario = nl2br($_POST['comentario']);
+                    $idnot=$_POST['id'];
             
             $sql="INSERT INTO comentario (idcomentario,contenido,fecha,usuario,idnoticia)
-             VALUES(NULL,'$comentario',sysdate(),'$nick','$id')";
-            var_dump($sql);
+             VALUES(NULL,'$comentario',sysdate(),'$nick','$idnot')";
+            //var_dump($sql);
             if ($result = $connection->query($sql)){
             echo "El comentario se ha insertado correctamente";
             echo "<br>";

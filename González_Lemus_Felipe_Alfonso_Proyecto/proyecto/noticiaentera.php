@@ -95,7 +95,10 @@
                          where idnoticia=$not;")) {
 
                             while($obj = $result->fetch_object()) {
-                                echo '<div class="col-lg-8 col-lg-offset-2 centered">';
+                                
+                                    echo '<div class="col-lg-8 col-lg-offset-2 centered">';
+                                    echo "<br>";
+                                    echo "<br>";
                                     echo "<b><h3>$obj->titulo</h3></b>";
                                     if($obj->fecha_modificacion!=NULL) {
                                     echo'<p>Se creó el: '.$obj->fecha_de_creacion.'.  Se ha modificado el: '.$obj->fecha_modificacion.'</p>';
@@ -103,21 +106,34 @@
                                     echo'<p>Se creó el: '.$obj->fecha_de_creacion.'</p>';
                                     }
                                 echo "<p>$obj->cuerpo</p>";
-                                echo "<p></p>";
-                                echo "<h1>Comentarios</h1>";
-                                echo '<p></p>';
-                                echo "<br>";
-                                echo "<br>";
-                                echo "<form method='get'>
-                    <a href='comentario.php?idnoticia=$obj->idnoticia'><input type='button' value='Añadir comentario'>
-                    </a></form>";
-			                    echo'</div>'; 
-                            //<a href='comentario.php?idnoticia=$obj->idnoticia'><input type='button' value='Añadir un comentario'></a>
+                                
+                                echo "<h1 style='color:blue;font-weight:bold'>Comentarios</h1>";
+                                
+                                //<a href='comentario.php?idnoticia=$obj->idnoticia'><input type='button' value='Añadir un comentario'></a>
+			                    echo'</div>';
+                                
+                                  $sql1="SELECT noticias.idnoticia, comentario.contenido cont, comentario.usuario as cn FROM noticias JOIN comentario ON noticias.idnoticia=comentario.idnoticia WHERE noticias.idnoticia=".$obj->idnoticia;
+                                  
+                                  if ($result1 = $connection->query($sql1)){
+                                        while ($obj1 = $result1->fetch_object()) {
+                                        echo '<div class="col-lg-8 col-lg-offset-2 centered">';
+                                        echo "<p></p>";
+                                        echo '<p>Comentó '.$obj1->cn.': '.$obj1->cont.'</p>';
+                                        echo'</div>';
+                                        }
+                                      echo "<form method='get'>
+                                        <a href='comentario.php?idnoticia=$obj->idnoticia'><input type='button' value='Añadir comentario'>
+                                        </a></form>";
+                                  }
+                             
+                            
                             }
                             $result->close();
                             unset($obj);
                             unset($connection);
                         }
+                        
+                        
                         ?>
 
 

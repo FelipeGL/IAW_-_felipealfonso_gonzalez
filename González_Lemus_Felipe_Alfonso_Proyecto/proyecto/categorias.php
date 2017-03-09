@@ -98,7 +98,8 @@
 
                             while($obj = $result->fetch_object()) {
                                 echo '<div class="col-lg-4">';
-                                echo "<a href='categoriadeterminada.php?id=$obj->idcategoria'><p>$obj->nombre</p></a>";
+                                echo "<a href='categoriadeterminada.php?id=$obj->idcategoria'><p>$obj->nombre</p>";
+                                echo "<a href='suscripcion.php?idcategoria=$obj->idcategoria'><input type='button' value='suscribirse'/></a></p></a>";
 			                    echo'</div>'; 
                             
                             }
