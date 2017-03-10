@@ -6,7 +6,9 @@
         session_destroy();
         header("Location: ../error.php");
     }
+    //podia haber puesto que el administrador tambien pudiera cambiarse la contraseña, pero por seguridad solo dejo al usuario. El administrador se la puede cambiar el mismo desde la base de datos, para eso es el admin de todo.
     ?>
+    
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">

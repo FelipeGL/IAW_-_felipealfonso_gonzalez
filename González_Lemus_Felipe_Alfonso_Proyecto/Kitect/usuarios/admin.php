@@ -202,6 +202,56 @@
             echo'</div>';
             echo'</div>';
             ?>
+            
+            
+            
+            <?php
+            echo'<div class="container">';
+            echo'<div class="row">';
+            echo'<div class="col-lg-8 col-lg-offset-2 centered">';
+
+            include("../conexion/conexion.php");
+
+
+            if ($connection->connect_errno) {
+                printf("Connection failed: %s\n", $connection->connect_error);
+                exit();
+            }
+            if ($result = $connection->query("SELECT * FROM comentario;")) {
+                echo"<table style='border:1px solid black'>";
+                echo"<h3>Lista de comentarios</h3>";
+                echo"<thead>";
+                echo"<tr>";
+                echo"<th> IDcomentario </th>";
+                echo"<th> Contenido </th>";
+                echo"<th> Fecha </th>";
+                echo"<th> Usuario </th>";
+                echo"<th> IDnoticia </th>";
+                echo "<th></th>";
+                echo"</thead>";
+                while($obj = $result->fetch_object()) {
+                    echo "<tr>";
+                    echo "<td>".$obj->idcomentario."</td>";
+                    echo "<td>".$obj->contenido."</td>";
+                    echo "<td>".$obj->fecha."</td>";
+                    echo "<td>".$obj->usuario."</td>";
+                    echo "<td>".$obj->idnoticia."</td>";
+                    echo "<td>
+                                                 <a href='../delete_update/deletecomentario.php?idcomentario=$obj->idcomentario'>
+                                                 <img src='../iconos/deletecategoria.png' width='20%';/>
+                                               </a></td>";
+                    echo "</tr>";
+                }
+                $result->close();
+                unset($obj);
+                unset($connection);
+            }
+            echo"</table>";
+
+            echo'</div>';
+            echo'</div>';
+            echo'</div>';
+            ?>
             <div class="col-lg-8 col-lg-offset-2 centered">
                 <p></p>
                 <p></p>

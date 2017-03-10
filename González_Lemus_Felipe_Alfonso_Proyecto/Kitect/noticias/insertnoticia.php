@@ -100,9 +100,6 @@ if ($_SESSION["tipo"]!=='admin'){
                                     ?>
 
 
-
-
-                                    <a href="../categoria/nuevacategoria.php"><input type="button" value="Añadir nueva categoría"></a>
                                     <p></p>
                                 </div>
                             </div>
@@ -134,11 +131,11 @@ if ($_SESSION["tipo"]!=='admin'){
 
         $sql="INSERT INTO noticias (idnoticia,titulo,cuerpo,fecha_de_creacion,fecha_modificacion,idUsuario,idcategoria)
              VALUES(NULL ,'$titulo','$cuerpo',sysdate(),NULL,'1','$cat')";
-        var_dump($sql);
+        //var_dump($sql);
         if ($result = $connection->query($sql)){
             echo "La noticia se ha creado correctamente";
             echo "<br>";
-            header("Location: index.php");
+            header("Location: ../index.php");
         } else {
             echo "Error en la consulta";
         }

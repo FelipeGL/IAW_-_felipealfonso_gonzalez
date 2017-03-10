@@ -121,9 +121,11 @@
                                         echo '<p>Comentó '.$obj1->cn.': '.$obj1->cont.'</p>';
                                         echo'</div>';
                                     }
-                                    echo "<form method='get'>
+                                    if (isset($_SESSION["nick"])){
+                                        echo "<form method='get'>
                                         <a href='../comentario/comentario.php?idnoticia=$obj->idnoticia'><input type='button' value='Añadir comentario'>
                                         </a></form>";
+                                    } 
                                 }
 
 

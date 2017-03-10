@@ -135,6 +135,8 @@
                         echo"</table>";
                         echo"</div>";
                         ?>
+                        
+                    
                         <br>
                         <br>
                         <a href="../delete_update/updatepass.php"><input type="button" value="Cambiar la contraseña"/></a>

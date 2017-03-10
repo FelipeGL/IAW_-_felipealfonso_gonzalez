@@ -93,7 +93,7 @@
                         $id=$_GET["id"]; 
 
 
-                        $sql="SELECT nombre FROM categoria";
+                        $sql="SELECT nombre FROM categoria WHERE idcategoria=$id";
                         if ($result = $connection->query($sql)){
                             $obj = $result->fetch_object();
                             echo "<h1>Noticias de $obj->nombre</h1>";
@@ -129,9 +129,13 @@
                                         echo '<p>Comentó '.$obj1->cn.': '.$obj1->cont.'</p>';
                                         echo'</div>';
                                     }
-                                    echo "<form method='get'>
+                                    
+                                if (isset($_SESSION["nick"])){
+                                echo "<form method='get'>
                                         <a href='../comentario/comentario.php?idnoticia=$obj->idnoticia'><input type='button' value='Añadir comentario'>
                                         </a></form>";
+                            } 
+                        
                                 }
 
 

@@ -115,7 +115,7 @@
 
         <!-- +++++ Footer Section +++++ -->
         <?php
-        include("pie.php")
+        include("pie2.php")
         ?>
 
         <!-- Bootstrap core JavaScript
